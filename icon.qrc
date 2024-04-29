@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Website-Interface.ico</file>
+    </qresource>
+</RCC>

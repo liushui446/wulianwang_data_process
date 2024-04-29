@@ -46,3 +46,8 @@ unix|win32: LIBS += -L$$PWD/lib/ -lQt5Qmqtt
 
 INCLUDEPATH += $$PWD/include
 DEPENDPATH += $$PWD/include
+
+RESOURCES += \
+    icon.qrc
+
+RC_FILE = mqtt.rc
