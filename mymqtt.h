@@ -36,6 +36,7 @@ public:
     void processTopic1Message(QString data);
     void processTopic2Message(QString data);
     void processTopic3Message(QString data);
+    void showMessageBox(QString mess);
 private slots:
 
     void on_btn_connect_clicked();
@@ -98,6 +99,10 @@ private:
     QString m_tp_1;
     QString m_tp_2;
     QString m_tp_3;
+
+    double m_topic_1_threshold;
+    double m_topic_2_threshold;
+    double m_topic_3_threshold;
 };
 
 #endif // MYMQTT_H

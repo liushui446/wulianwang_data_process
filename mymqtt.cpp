@@ -1,6 +1,8 @@
 #include "mymqtt.h"
 #include "ui_mymqtt.h"
 
+#include <QMessageBox>
+
 MyMqtt::MyMqtt(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MyMqtt)
@@ -11,6 +13,10 @@ MyMqtt::MyMqtt(QWidget *parent) :
 
 MyMqtt::~MyMqtt()
 {
+    if(mqtt != nullptr)
+    {
+        mqtt->disconnectFromHost();
+    }
     delete ui;
 }
 
@@ -23,6 +29,11 @@ void MyMqtt::iniUI()
     m_set_2_range_high = 20;
     m_set_3_range_low = 0;
     m_set_3_range_high = 20;
+
+    //阈值设定
+    m_topic_1_threshold = 10;
+    m_topic_2_threshold = 10;
+    m_topic_3_threshold = 10;
 
     m_LoadSerise_set_1 = new QSplineSeries(this);
     m_LoadSerise_set_2 = new QSplineSeries(this);
@@ -208,20 +219,35 @@ void MyMqtt::mqtt_recv_msg(QMQTT::Message msg) //接收消息处理
 
 void MyMqtt::on_btn_sub_tp_1_clicked() //订阅1
 {
-    mqtt->subscribe(ui->lineEdit_sub_topic_1->text(), 1);
     m_tp_1 = ui->lineEdit_sub_topic_1->text();
+    if(m_tp_1 == "")
+    {
+        showMessageBox(QString("topic_1 editbox is null!"));
+        return;
+    }
+    mqtt->subscribe(ui->lineEdit_sub_topic_1->text(), 1);
 }
 
 void MyMqtt::on_btn_sub_tp_2_clicked() //订阅2
 {
-    mqtt->subscribe(ui->lineEdit_sub_topic_2->text(), 1);
     m_tp_2 = ui->lineEdit_sub_topic_2->text();
+    if(m_tp_2 == "")
+    {
+        showMessageBox(QString("topic_2 editbox is null!"));
+        return;
+    }
+    mqtt->subscribe(ui->lineEdit_sub_topic_2->text(), 1);
 }
 
 void MyMqtt::on_btn_sub_tp_3_clicked() //订阅3
 {
-    mqtt->subscribe(ui->lineEdit_sub_topic_3->text(), 1);
     m_tp_3 = ui->lineEdit_sub_topic_3->text();
+    if(m_tp_3 == "")
+    {
+        showMessageBox(QString("topic_3 editbox is null!"));
+        return;
+    }
+    mqtt->subscribe(ui->lineEdit_sub_topic_3->text(), 1);
 }
 
 void MyMqtt::on_btn_pub_clicked() //发布消息
@@ -247,6 +273,11 @@ void MyMqtt::processTopic1Message(QString data)
     double painter_data = data.toDouble();
     QDateTime time = QDateTime::currentDateTime();
     m_LoadSerise_set_1->append(time.toMSecsSinceEpoch(), painter_data);
+    if(painter_data > m_topic_1_threshold)
+    {
+        ui->label_tp_1_status->setText("警报");
+        ui->label_tp_1_status->setStyleSheet("color: rgb(255, 0, 0);");
+    }
 }
 
 void MyMqtt::processTopic2Message(QString data)
@@ -254,6 +285,11 @@ void MyMqtt::processTopic2Message(QString data)
     double painter_data = data.toDouble();
     QDateTime time = QDateTime::currentDateTime();
     m_LoadSerise_set_2->append(time.toMSecsSinceEpoch(),painter_data);
+    if(painter_data > m_topic_2_threshold)
+    {
+        ui->label_tp_2_status->setText("警报");
+        ui->label_tp_2_status->setStyleSheet("color: rgb(255, 0, 0);");
+    }
 }
 
 void MyMqtt::processTopic3Message(QString data)
@@ -261,4 +297,19 @@ void MyMqtt::processTopic3Message(QString data)
     double painter_data = data.toDouble();
     QDateTime time = QDateTime::currentDateTime();
     m_LoadSerise_set_3->append(time.toMSecsSinceEpoch(),painter_data);
+    if(painter_data > m_topic_3_threshold)
+    {
+        ui->label_tp_3_status->setText("警报");
+        ui->label_tp_3_status->setStyleSheet("color: rgb(255, 0, 0);");
+    }
+}
+
+void MyMqtt::showMessageBox(QString mess) {
+    QMessageBox messageBox;
+    messageBox.setWindowTitle("提示");
+    messageBox.setText(mess);
+
+    messageBox.setDefaultButton(QMessageBox::Ok);
+
+    messageBox.exec();
 }
