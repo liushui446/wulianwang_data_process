@@ -14,9 +14,15 @@
 #include <QTimer>
 #include <QDateTimeAxis>
 
+#include <QtCore/QCoreApplication>
+#include <QSettings>
 
-//#define     USER_NAME   "d17116adf3974250b43d3ae6f9bed1f8"
-#define     USER_NAME   "824675d8b3524ca0a5769affa5f8e969"
+#include "mysetting.h"
+#include "myData.h"
+
+
+#define     USER_NAME   "d17116adf3974250b43d3ae6f9bed1f8"
+//#define     USER_NAME   "824675d8b3524ca0a5769affa5f8e969"
 
 namespace Ui {
 class MyMqtt;
@@ -37,6 +43,9 @@ public:
     void processTopic2Message(QString data);
     void processTopic3Message(QString data);
     void showMessageBox(QString mess);
+    void ChangeParam(my_data data);
+    void AchiParam(my_data& data);
+    void GetIniFile();
 private slots:
 
     void on_btn_connect_clicked();
@@ -61,9 +70,14 @@ private slots:
 
     void on_btn_clear_send_clicked();
 
+    void on_actionsetting_triggered();
+
 private:
     Ui::MyMqtt *ui;
     QMQTT::Client *mqtt = nullptr;
+
+    MySetting* m_cMySetting;
+    QSettings *m_settings = nullptr;
 
     QString USER_ID;
     QString host;
@@ -103,6 +117,8 @@ private:
     double m_topic_1_threshold;
     double m_topic_2_threshold;
     double m_topic_3_threshold;
+
+    my_data m_setting;
 };
 
 #endif // MYMQTT_H

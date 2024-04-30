@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MySetting</class>
+ <widget class="QDialog" name="MySetting">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>611</width>
+    <height>362</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout" stretch="8,1">
+     <item>
+      <layout class="QGridLayout" name="gridLayout">
+       <property name="leftMargin">
+        <number>12</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>12</number>
+       </property>
+       <property name="horizontalSpacing">
+        <number>28</number>
+       </property>
+       <property name="verticalSpacing">
+        <number>6</number>
+       </property>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Client_Id：</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>topic_2_theld：</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>topic_1_high：</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>topic_2_high：</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="lineEdit_topic_2_theld"/>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>topic_3_theld：</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="lineEdit_topic_1_high"/>
+       </item>
+       <item row="2" column="2">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>topic_1_low：</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="lineEdit_topic_2_high"/>
+       </item>
+       <item row="3" column="2">
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>topic_2_low：</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>topic_3_high：</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="lineEdit_topic_3_high"/>
+       </item>
+       <item row="4" column="2">
+        <widget class="QLabel" name="label_11">
+         <property name="text">
+          <string>topic_3_low：</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="lineEdit_Client_Id"/>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>topic_1_theld：</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3" colspan="4">
+        <widget class="QLineEdit" name="lineEdit_topic_1_theld"/>
+       </item>
+       <item row="1" column="3" colspan="4">
+        <widget class="QLineEdit" name="lineEdit_topic_3_theld"/>
+       </item>
+       <item row="2" column="3" colspan="4">
+        <widget class="QLineEdit" name="lineEdit_topic_1_low"/>
+       </item>
+       <item row="3" column="3" colspan="4">
+        <widget class="QLineEdit" name="lineEdit_topic_2_low"/>
+       </item>
+       <item row="4" column="3" colspan="4">
+        <widget class="QLineEdit" name="lineEdit_topic_3_low"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="5,2,2">
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_save">
+         <property name="text">
+          <string>保存</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_close">
+         <property name="text">
+          <string>关闭</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

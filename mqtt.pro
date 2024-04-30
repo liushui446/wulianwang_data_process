@@ -29,13 +29,17 @@ DEPENDPATH += $$PWD/include
 
 SOURCES += \
         main.cpp \
-        mymqtt.cpp
+        mymqtt.cpp \
+        mysetting.cpp
 
 HEADERS += \
-        mymqtt.h
+        mydata.h \
+        mymqtt.h \
+        mysetting.h
 
 FORMS += \
-        mymqtt.ui
+        mymqtt.ui \
+        mysetting.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -3,6 +3,7 @@
 
 #include <QMessageBox>
 
+
 MyMqtt::MyMqtt(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MyMqtt)
@@ -22,18 +23,8 @@ MyMqtt::~MyMqtt()
 
 void MyMqtt::iniUI()
 {
-    //自定义设置接收设备数据范围
-    m_set_1_range_low = 0;
-    m_set_1_range_high = 20;
-    m_set_2_range_low = 0;
-    m_set_2_range_high = 20;
-    m_set_3_range_low = 0;
-    m_set_3_range_high = 20;
-
-    //阈值设定
-    m_topic_1_threshold = 10;
-    m_topic_2_threshold = 10;
-    m_topic_3_threshold = 10;
+    m_settings = new QSettings("./setting.ini",QSettings::IniFormat);
+    GetIniFile();
 
     m_LoadSerise_set_1 = new QSplineSeries(this);
     m_LoadSerise_set_2 = new QSplineSeries(this);
@@ -153,7 +144,7 @@ void MyMqtt::on_btn_connect_clicked()
             connect(mqtt, SIGNAL(disconnected()), this, SLOT(mqtt_disconnected()));
             connect(mqtt, SIGNAL(subscribed(QString, quint8)), this, SLOT(mqtt_sub_success(QString, quint8)));
             connect(mqtt, SIGNAL(received(QMQTT::Message)),   this, SLOT(mqtt_recv_msg(QMQTT::Message)));
-            mqtt->setClientId(USER_NAME); // 设置客户端ID为自己的私钥
+            mqtt->setClientId(m_setting.m_client_id); // 设置客户端ID为自己的私钥
             mqtt->setKeepAlive(10);
 
             mqtt->setCleanSession(true);
@@ -312,4 +303,36 @@ void MyMqtt::showMessageBox(QString mess) {
     messageBox.setDefaultButton(QMessageBox::Ok);
 
     messageBox.exec();
+}
+
+void MyMqtt::ChangeParam(my_data data)
+{
+    m_setting = data;
+}
+
+void MyMqtt::AchiParam(my_data &data)
+{
+    data = m_setting;
+}
+
+void MyMqtt::on_actionsetting_triggered()
+{
+    m_cMySetting = new MySetting(m_setting,this);
+    m_cMySetting->exec();
+}
+
+void MyMqtt::GetIniFile()
+{
+    if(m_settings != nullptr){
+        m_setting.m_client_id = QString(m_settings->value("Client_Id/id").toString());
+        m_setting.m_set_1_range_low = m_settings->value("AxisY_Range/set_1_range_low").toDouble();
+        m_setting.m_set_1_range_high = m_settings->value("AxisY_Range/set_1_range_high").toDouble();
+        m_setting.m_set_2_range_low = m_settings->value("AxisY_Range/set_2_range_low").toDouble();
+        m_setting.m_set_2_range_high = m_settings->value("AxisY_Range/set_2_range_high").toDouble();
+        m_setting.m_set_3_range_low = m_settings->value("AxisY_Range/set_3_range_low").toDouble();
+        m_setting.m_set_3_range_high = m_settings->value("AxisY_Range/set_3_range_high").toDouble();
+        m_setting.m_topic_1_threshold = m_settings->value("Threshold/topic_1_threshold").toDouble();
+        m_setting.m_topic_2_threshold = m_settings->value("Threshold/topic_2_threshold").toDouble();
+        m_setting.m_topic_3_threshold = m_settings->value("Threshold/topic_3_threshold").toDouble();
+    }
 }

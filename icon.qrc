@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>Website-Interface.ico</file>
+        <file>stylesheet.qss</file>
     </qresource>
 </RCC>
